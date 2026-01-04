@@ -1,0 +1,57 @@
+<ItemPools>
+	<Pool Name="treasure">
+		<Item Name="Dash!" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+	<Pool Name="shop">
+		<Item Name="Dash!" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+	<Pool Name="goldenChest">
+		<Item Name="Dash!" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+	<Pool Name="redChest">
+		<Item Name="Dash!" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+	<Pool Name="beggar">
+		<Item Name="Dash!" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+	<Pool Name="greedShop">
+		<Item Name="Dash!" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+	<Pool Name="craneGame">
+		<Item Name="Dash!" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+	<Pool Name="secret">
+		<Item Name="Dash!" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+	<Pool Name="ultraSecret">
+		<Item Name="Dash!" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+
+	<Pool Name="treasure">
+		<Item Name="Celeste!" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+	<Pool Name="shop">
+		<Item Name="Celeste!" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+	<Pool Name="goldenChest">
+		<Item Name="Celeste!" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+	<Pool Name="redChest">
+		<Item Name="Celeste!" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+	<Pool Name="beggar">
+		<Item Name="Celeste!" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+	<Pool Name="greedShop">
+		<Item Name="Celeste!" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+	<Pool Name="craneGame">
+		<Item Name="Celeste!" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+	<Pool Name="secret">
+		<Item Name="Celeste!" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+	<Pool Name="ultraSecret">
+		<Item Name="Celeste!" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+	</Pool>
+</ItemPools>

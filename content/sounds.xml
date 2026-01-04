@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<sounds root="sfx/feedback/">
+    <sound name="dash_sfx">
+        <sample weight="1" path="dash_sfx.wav" />
+    </sound>
+</sounds>

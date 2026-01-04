@@ -1,0 +1,13 @@
+<players root="gfx/characters/costumes/" 
+         portraitroot="gfx/ui/stage/" 
+         nameimageroot="gfx/ui/boss/">
+    <player name="Madeline" skin="character_madeline.png" hp="4" armor="2" bombs="1"
+          nameimage="madeline_name.png" 
+          portrait="portrait_madeline.png" skinColor="-1"
+		  birthright="#ISAAC_BIRTHRIGHT" />
+    <player name="Tainted Madeline" skin="character_madeline_tainted.png" hp="6" armor="2" bombs="1"
+          nameimage="madeline_name.png" 
+          portrait="portrait_madeline.png" skinColor="-1"
+          bSkinParent="Madeline"
+		  birthright="#ISAAC_BIRTHRIGHT" />
+</players>
