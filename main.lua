@@ -1,4 +1,4 @@
-local mod = RegisterMod("[rep+] Celeste Mod", 1)
+local mod = RegisterMod("[rep,rep+] Celeste Mod", 1)
 local game = Game()
 
 local PASSIVE_ID = Isaac.GetItemIdByName("Celeste!")
@@ -8,7 +8,7 @@ local ACTIVE2_ID = Isaac.GetItemIdByName("Stop!")
 
 local ATTACK_ANM_PATH = "gfx/attack.anm2"
 local ATTACK_ANIM_NAME = "Charged"
-local ATTACK_ANIM_DUR = 30
+local ATTACK_ANIM_DUR = 36
 
 local ATTACK_ANIM_BASE_DIAMETER = 1.91
 
@@ -36,12 +36,9 @@ local REGEN_CAP_HALFHEARTS = 6
 local POST_DASH_INERTIA_SPEED = 5
 local POST_DASH_INERTIA_FRAMES = 12
 
-
-local PASSIVE_TEAR_BONUS = -1
+local PASSIVE_TEARS_MULT = 0.65
 local PASSIVE_DAMAGE_MULT = 2.0
 
-
--- EID descriptions
 if EID then
     local dashDesc = {
         ["cz_cz"] =
@@ -120,7 +117,6 @@ if EID then
     for lang, desc in pairs(passiveDesc) do EID:addCollectible(PASSIVE_ID, desc, "Celeste!", lang) end
 end
 
-
 local function GetPlayerRange(player)
     if not player then return nil end
     local ok, val
@@ -141,26 +137,9 @@ local function RangeToWaveScale(range)
     return 1 + extra
 end
 
+-- wow code :-)
 local function SpriteScaleForRadius(player, radius)
-    local baseDiam = ATTACK_ANIM_BASE_DIAMETER
-    -- if type(baseDiam) ~= "number" or baseDiam <= 0 then baseDiam = 64 end
-    -- if not player or type(radius) ~= "number" or radius <= 0 then
-    --     return 1.0
-    -- end
-
-    -- local ok, desiredPixelDiam = pcall(function()
-    --     local pCenter = Isaac.WorldToScreen(player.Position)
-    --     local pEdge = Isaac.WorldToScreen(player.Position + Vector(radius, 0))
-    --     return (pEdge - pCenter):Length() * 2
-    -- end)
-
-    -- if not ok or type(desiredPixelDiam) ~= "number" or desiredPixelDiam <= 0 then
-    --     desiredPixelDiam = radius * 2
-    -- end
-
-    local spriteScale = baseDiam
-    -- if spriteScale < 0.02 then spriteScale = 0.02 end
-    return spriteScale
+    return ATTACK_ANIM_BASE_DIAMETER
 end
 
 local function CalculateTears(fd, bonusTears)
@@ -187,9 +166,13 @@ function mod:OnEvaluateCache(player, cacheFlag)
     if cacheFlag == CacheFlag.CACHE_SPEED and player:HasTrinket(TRINKET_ID) then
         player.MoveSpeed = player.MoveSpeed + 0.15
     elseif cacheFlag == CacheFlag.CACHE_FIREDELAY then
-        local base = player:HasCollectible(PASSIVE_ID) and PASSIVE_TEAR_BONUS or 0
-        player.MaxFireDelay = CalculateTears(player.MaxFireDelay, base + d._TearBonus)
+    if d._TearBonus ~= 0 then
+        player.MaxFireDelay = CalculateTears(player.MaxFireDelay, d._TearBonus)
     end
+    if player:HasCollectible(PASSIVE_ID) then
+        player.MaxFireDelay = math.max(1, player.MaxFireDelay / PASSIVE_TEARS_MULT)
+    end
+end
 
     if not player:HasCollectible(PASSIVE_ID) then return end
 
@@ -206,25 +189,21 @@ mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.OnEvaluateCache)
 mod:AddCallback(ModCallbacks.MC_POST_PEFFECT_UPDATE,
     function(_, p) if p:HasTrinket(TRINKET_ID) then p:EvaluateItems() end end)
 
-local function ActivateCeleste(player)
+local function StartCelesteWave(player, scaledRadius)
     if not player or not player:Exists() then return end
     local d = player:GetData()
-
-    -- i could remove all the logic about scaling the range of the celeste wave in terms of player range, but to lazy for it :-|
-    -- just make the SpriteScaleForRadius function, return a fix value and that's it
-    local range = GetPlayerRange(player)
-    local scale = RangeToWaveScale(range)
-    local scaledRadius = math.floor(WAVE_RADIUS * scale + 0.5)
-
     d._HorizonWaveTimer = WAVE_INTERVAL_FRAMES
     d._WaveActiveTimer = WAVE_ACTIVE_FRAMES
+    d._CelesteAttackScaledRadius = scaledRadius
+    d._CelesteWaveTotalFrames = WAVE_ACTIVE_FRAMES
+    d._CelesteWaveLastRadius = 0
+    d._CelesteWaveHit = {}
 
     if not d._CelesteAttackSprite then
         d._CelesteAttackSprite = Sprite()
         d._CelesteAttackSprite:Load(ATTACK_ANM_PATH, true)
     end
 
-    d._CelesteAttackScaledRadius = scaledRadius
     local spriteScale = SpriteScaleForRadius(player, scaledRadius)
     d._CelesteAttackSpriteScale = spriteScale
 
@@ -233,46 +212,70 @@ local function ActivateCeleste(player)
         pcall(function() d._CelesteAttackSprite.Scale = Vector(spriteScale, spriteScale) end)
     end)
 
+    d._CelesteAttackPlaying = true
+    d._CelesteAttackTimer = ATTACK_ANIM_DUR
+    d._CelesteAttackOffset = Vector(0, ATTACK_ANIM_OFFSET_Y)
+end
+
+local function ProcessCelesteWave(player)
+    if not player or not player:Exists() then return end
+    local d = player:GetData()
+    if not d._WaveActiveTimer or d._WaveActiveTimer <= 0 then return end
+    if not d._CelesteAttackScaledRadius then return end
+
+    local total = d._CelesteWaveTotalFrames or WAVE_ACTIVE_FRAMES
+    local current = d._WaveActiveTimer
+    local elapsed = math.max(0, (total - current) + 1)
+    local progress = math.min(1, elapsed / total)
+
+    local curRadius = d._CelesteAttackScaledRadius * progress
+    local lastRadius = d._CelesteWaveLastRadius or 0
+    local ringThickness = math.max(1, (d._CelesteAttackScaledRadius / total) * 1.5)
+
     for _, ent in ipairs(Isaac.GetRoomEntities()) do
-        local dist = ent.Position:Distance(player.Position)
-        if dist <= scaledRadius then
-            if ent:IsVulnerableEnemy() then
-                local wasAlive = false
-                pcall(function()
-                    wasAlive = not ent:IsDead()
-                    if ent.HitPoints and ent.HitPoints <= 0 then wasAlive = false end
-                end)
-
-                if wasAlive then
-                    pcall(function()
-                        ent:TakeDamage(player.Damage * 2, 0, EntityRef(player), 0)
-                        ent.Velocity = ent.Velocity + (ent.Position - player.Position):Normalized() * 5
-                    end)
-
-                    local died = false
-                    pcall(function()
-                        if ent:IsDead() then died = true end
-                        if ent.HitPoints and ent.HitPoints <= 0 then died = true end
-                    end)
-
-                    if died then
-                        if math.random() < HALF_HEART_ON_KILL_CHANCE then
-                            pcall(function() player:AddHearts(1) end)
-                        end
+        if ent:IsVulnerableEnemy() and not ent:IsDead() then
+            local ok, dist = pcall(function() return ent.Position:Distance(player.Position) end)
+            if ok and type(dist) == "number" then
+                if dist > (lastRadius - 0.5) and dist <= (curRadius + ringThickness) then
+                    local entId = tostring(ent.InitSeed) .. "_" .. tostring(ent.InitSeed or 0)
+                    if not d._CelesteWaveHit[entId] then
+                        d._CelesteWaveHit[entId] = true
+                        pcall(function()
+                            ent:TakeDamage(math.max(1, player.Damage * 2), 0, EntityRef(player), 0)
+                            ent.Velocity = ent.Velocity + (ent.Position - player.Position):Normalized() * 5
+                        end)
+                        pcall(function()
+                            if ent:IsDead() then
+                                if math.random() < HALF_HEART_ON_KILL_CHANCE then
+                                    player:AddHearts(1)
+                                end
+                            end
+                        end)
                     end
                 end
             end
         end
     end
 
-    d._CelesteAttackPlaying = true
-    d._CelesteAttackTimer = ATTACK_ANIM_DUR
-    d._CelesteAttackOffset = Vector(0, ATTACK_ANIM_OFFSET_Y)
+    d._CelesteWaveLastRadius = curRadius
+
+    if d._WaveActiveTimer <= 1 then
+        d._CelesteWaveLastRadius = nil
+        d._CelesteWaveTotalFrames = nil
+        d._CelesteWaveHit = nil
+    end
+end
+
+local function ActivateCeleste(player)
+    if not player or not player:Exists() then return end
+    local range = GetPlayerRange(player)
+    local scale = RangeToWaveScale(range)
+    local scaledRadius = math.floor(WAVE_RADIUS * scale + 0.5)
+    StartCelesteWave(player, scaledRadius)
 end
 
 local function PlayDashSFX()
     local sfx = SFXManager()
-
     local ok, id = pcall(Isaac.GetSoundIdByName, "dash_sfx")
     if ok and type(id) == "number" and id ~= -1 and id ~= 0 then
         pcall(function() sfx:Play(id) end)
@@ -315,7 +318,6 @@ function mod:OnUseStop(itemID, _, player)
 end
 
 mod:AddCallback(ModCallbacks.MC_USE_ITEM, mod.OnUseStop, ACTIVE2_ID)
-
 
 function mod:OnPlayerUpdate(player)
     local d = player:GetData()
@@ -406,43 +408,6 @@ function mod:OnPlayerUpdate(player)
         d._HorizonWaveTimer = (d._HorizonWaveTimer or WAVE_INTERVAL_FRAMES) - 1
         if d._HorizonWaveTimer <= 0 then
             d._HorizonWaveTimer = WAVE_INTERVAL_FRAMES
-            d._WaveActiveTimer = WAVE_ACTIVE_FRAMES
-
-            for _, ent in ipairs(Isaac.GetRoomEntities()) do
-                local dist = ent.Position:Distance(player.Position)
-                if dist <= scaledRadius then
-                    if ent:IsVulnerableEnemy() then
-                        local wasAlive = false
-                        pcall(function()
-                            wasAlive = not ent:IsDead()
-
-                            if ent.HitPoints and ent.HitPoints <= 0 then wasAlive = false end
-                        end)
-
-                        if wasAlive then
-                            pcall(function()
-                                ent:TakeDamage(player.Damage * 2, 0, EntityRef(player), 0)
-                                ent.Velocity = ent.Velocity + (ent.Position - player.Position):Normalized() * 5
-                            end)
-
-                            local died = false
-                            pcall(function()
-                                if ent:IsDead() then
-                                    died = true
-                                elseif ent.HitPoints and ent.HitPoints <= 0 then
-                                    died = true
-                                end
-                            end)
-
-                            if died then
-                                if math.random() < HALF_HEART_ON_KILL_CHANCE then
-                                    pcall(function() player:AddHearts(1) end)
-                                end
-                            end
-                        end
-                    end
-                end
-            end
 
             if not d._CelesteAttackSprite then
                 d._CelesteAttackSprite = Sprite()
@@ -463,9 +428,17 @@ function mod:OnPlayerUpdate(player)
                 d._CelesteAttackTimer = ATTACK_ANIM_DUR
                 d._CelesteAttackOffset = Vector(0, ATTACK_ANIM_OFFSET_Y)
             end
+
+            d._WaveActiveTimer = WAVE_ACTIVE_FRAMES
+            d._CelesteWaveTotalFrames = WAVE_ACTIVE_FRAMES
+            d._CelesteWaveLastRadius = 0
+            d._CelesteWaveHit = {}
         end
 
-        if d._WaveActiveTimer and d._WaveActiveTimer > 0 then d._WaveActiveTimer = d._WaveActiveTimer - 1 end
+        if d._WaveActiveTimer and d._WaveActiveTimer > 0 then
+            ProcessCelesteWave(player)
+            d._WaveActiveTimer = d._WaveActiveTimer - 1
+        end
         
         d._RegenTimer = (d._RegenTimer or REGEN_INTERVAL_FRAMES) - 1
         if d._RegenTimer <= 0 then
@@ -614,5 +587,30 @@ function mod:cache2(player, cacheFlag)
 end
 
 mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.cache2)
+
+local function ReplaceTearSprite(_, tear)
+    if not tear or not tear:Exists() then return end
+
+    local spawnerPlayer = nil
+    if tear.SpawnerEntity and tear.SpawnerEntity.Type == EntityType.ENTITY_PLAYER then
+        spawnerPlayer = tear.SpawnerEntity:ToPlayer()
+    elseif tear.Parent and tear.Parent.Type == EntityType.ENTITY_PLAYER then
+        spawnerPlayer = tear.Parent:ToPlayer()
+    end
+
+    if not spawnerPlayer then return end
+    if not spawnerPlayer:HasCollectible(PASSIVE_ID) then return end
+
+    local spr = tear:GetSprite()
+    if not spr then return end
+
+    pcall(function()
+        spr:Load("gfx/star_tear_anim.anm2", true)
+        pcall(function() spr:Play("rotation0", true) end)
+    end)
+end
+
+mod:AddCallback(ModCallbacks.MC_POST_TEAR_INIT, ReplaceTearSprite)
+mod:AddCallback(ModCallbacks.MC_POST_FIRE_TEAR, ReplaceTearSprite)
 
 return mod
