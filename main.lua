@@ -232,6 +232,7 @@ local function ProcessCelesteWave(player)
     local lastRadius = d._CelesteWaveLastRadius or 0
     local ringThickness = math.max(1, (d._CelesteAttackScaledRadius / total) * 1.5)
 
+    -- not proud of this code :(
     for _, ent in ipairs(Isaac.GetRoomEntities()) do
         if ent:IsVulnerableEnemy() and not ent:IsDead() then
             local ok, dist = pcall(function() return ent.Position:Distance(player.Position) end)
