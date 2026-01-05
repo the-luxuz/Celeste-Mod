@@ -49,9 +49,6 @@
 		<Item Name="Celeste!" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
 	</Pool>
 	<Pool Name="secret">
-		<Item Name="Celeste!" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
-	</Pool>
-	<Pool Name="ultraSecret">
-		<Item Name="Celeste!" Weight="1" DecreaseBy="1" RemoveOn="0.1"/>
+		<Item Name="Celeste!" Weight="1" DecreaseBy="0.4" RemoveOn="0.1"/>
 	</Pool>
 </ItemPools>

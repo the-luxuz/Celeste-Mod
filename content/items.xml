@@ -1,6 +1,6 @@
 <items gfxroot="gfx/items/" version="1">
   <trinket cache="speed" description="More power" gfx="dashtrinket.png" name="Twister"/>
   <passive cache="damage firedelay speed tearflag" name="Celeste!" description="It's Madeline!" quality="4" gfx="celeste.png" soulhearts="1" />
-  <active name="Dash!" description="A Dash!" maxcharges="140" chargetype="timed" cooldown="5" quality="3" gfx="dash.png"/>
+  <active name="Dash!" description="A Dash!" maxcharges="140" chargetype="timed" cooldown="5" quality="1" gfx="dash.png"/>
   <active name="Stop!" description="Please Stop" maxcharges="2" quality="0" gfx="Stop!.png"/>
 </items>
