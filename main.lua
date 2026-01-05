@@ -39,6 +39,7 @@ local POST_DASH_INERTIA_FRAMES = 12
 local PASSIVE_TEARS_MULT = 0.65
 local PASSIVE_DAMAGE_MULT = 2.0
 
+
 if EID then
     local dashDesc = {
         ["cz_cz"] =
