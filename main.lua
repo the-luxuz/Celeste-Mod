@@ -1,3 +1,14 @@
+
+-- in this code there is some trash code and naming inaccuracies, because i had tons of ideas to implement 
+-- and not all of them could be implemented. im to lazy to remove that code or change the names -_-
+-- whatever, im the only one working on this code, so who cares :-)
+-- in projects with more people i will be much more careful with naming accuracy, code quality, documentation and other stuff, but I want to finish this mod so badly -_-
+-- so for those reading this comment who want to see what i did, good luck :)
+
+-- btw, this is my first time using lua, so if you see something strange here, is bcs i used ai to help me get started with lua and isaac api :-|
+
+-- Luxuz
+
 local mod = RegisterMod("[rep,rep+] Celeste Mod", 1)
 local game = Game()
 
@@ -39,6 +50,7 @@ local POST_DASH_INERTIA_FRAMES = 12
 local PASSIVE_TEARS_MULT = 0.65
 local PASSIVE_DAMAGE_MULT = 2.0
 
+local rotationIndex = 0
 
 if EID then
     local dashDesc = {
@@ -248,6 +260,7 @@ local function ProcessCelesteWave(player)
                         end)
                         pcall(function()
                             if ent:IsDead() then
+                                -- this doesn't work. randomly adds hearts to the player even if you don't kill an entity.
                                 if math.random() < HALF_HEART_ON_KILL_CHANCE then
                                     player:AddHearts(1)
                                 end
@@ -540,12 +553,13 @@ function ChargeBarRender(Meter, IsCharging, pos, Sprite)
     Sprite:Update()
 end
 
+
 mod:AddCallback(ModCallbacks.MC_POST_PLAYER_RENDER, function(_, player)
     if player:HasCollectible(PASSIVE_ID) then
         local d = player:GetData()
         d._CelesteWaveChargebar = d._CelesteWaveChargebar or Sprite()
         if not d._CelesteWaveChargebar:IsLoaded() then
-            d._CelesteWaveChargebar:Load("gfx/dashchargebar.anm2", true)
+            d._CelesteWaveChargebar:Load("gfx/celestechargebar.anm2", true)
         end
         d._CelesteWaveChargebar.Scale = Vector(0.8, 0.8)
         d._HorizonWaveTimer = d._HorizonWaveTimer or WAVE_INTERVAL_FRAMES
@@ -606,9 +620,21 @@ local function ReplaceTearSprite(_, tear)
     local spr = tear:GetSprite()
     if not spr then return end
 
+    local i = rotationIndex
+
     pcall(function()
         spr:Load("gfx/star_tear_anim.anm2", true)
-        pcall(function() spr:Play("rotation0", true) end)
+        if i == 0 then
+            pcall(function() spr:Play("rotation0", true) end)
+        elseif i == 1 then
+            pcall(function() spr:Play("rotation1", true) end)
+        elseif i == 2 then
+            pcall(function() spr:Play("rotation2", true) end)
+        elseif i == 3 then
+            pcall(function() spr:Play("rotation3", true) end)
+        end
+        rotationIndex = rotationIndex + 1
+        if rotationIndex > 3 then rotationIndex = 0 end
     end)
 end
 
