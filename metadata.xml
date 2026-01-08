@@ -1,9 +1,47 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<?xml-model href="https://wofsauge.github.io/isaac-xml-validator/xsd/metadata.xsd" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <metadata>
-  <name>[rep,rep+] Celeste Mod</name>
-  <directory>[rep,rep+] Celeste Mod</directory>
-  <description>[rep,rep+] Celeste Mod is a currently a work in progress.</description>
-  <version>1.0</version>
-  <visibility />
+    <name>[rep,rep+] Celeste Mod</name>
+    <directory>[rep,rep+] celeste mod</directory>
+    <id>3642323132</id>
+    <description>A mod for The Binding of Isaac that adds Celeste features to the game.
+
+What does this mod add?
+
+--------------------------
+
+New character : Madeline / Tainted Madeline
+
+--------------------------
+
+Items/Trinket :
+- Celeste! (Tier 4)
+- Dash! (Tier 2)
+- Twister (Trinket)
+- Stop! (an exclusive Tainted Madeline item that doesn’t appear on pedestals)
+
+--------------------------
+
+Pickups :
+- The hearts have been replaced by Celeste hearts, the coins by strawberries and the keys by the Celeste chapter 3 key
+
+--------------------------
+
+SFX :
+- Some sound effects have been replaced, like the coin or the secret reveal SFX
+
+--------------------------
+
+Resprite &amp; Changes :
+- There are some resprites like the big chest when you beat and important boss, and some mini details like using the strawberries in the donation machine instead of coins
+
+--------------------------</description>
+    <version>1.9</version>
+    <visibility>Public</visibility>
+    <tag id="Lua"/>
+    <tag id="Items"/>
+    <tag id="Active Items"/>
+    <tag id="Trinkets"/>
+    <tag id="Pickups"/>
+    <tag id="Player Characters"/>
+    <tag id="Sound Effects"/>
 </metadata>
