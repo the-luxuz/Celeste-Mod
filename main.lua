@@ -81,52 +81,37 @@ if EID then
     }
 
     local trinketDesc = {
-        ["cz_cz"] =
-        "↑ +0.15 Rychlost#Malý bonus k atributům#Speciální interakce s Dash!/Celeste: Zvyšuje damage dashu z 2× → 2.5×",
-        ["de"]    = "↑ +0.15 Geschwindigkeit#Leichter Stat-Bonus#Synergie mit Dash!/Celeste: Schaden von 2× → 2,5×",
-        ["en_us"] = "↑ +0.15 Speed#Minor stat bonus#Special synergy with Dash!/Celeste: dash damage 2× → 2.5×",
-        ["es"]    =
-        "↑ +0.15 Velocidad#Pequeño aumento de stats#Sinergia especial con Dash!/Celeste: daño del dash 2× → 2.5×",
-        ["fr"]    = "↑ +0.15 Vitesse#Petit bonus de stats#Synergie spéciale avec Dash!/Celeste : dégâts du dash 2× → 2.5×",
-        ["it"]    =
-        "↑ +0.15 Velocità#Leggero bonus alle statistiche#Sinergia con Dash!/Celeste: danno dello scatto 2× → 2.5×",
-        ["ja_jp"] = "↑ 移動速度 +0.15#小さなステータス上昇#Dash!/Celesteとの相互作用:ダメージ2倍→2.5倍",
-        ["ko_kr"] = "↑ 속도 +0.15#작은 스탯 보너스#Dash!/Celeste 시너지:대시 데미지 2× → 2.5×",
-        ["ro_ro"] = "↑ +0.15 Viteză#Mic bonus la atribute#Sinergie specială cu Dash!/Celeste: daunele dash 2× → 2.5×",
-        ["ru"]    = "↑ +0.15 Скорость#Небольшой бонус к статам#Синергия с Dash!/Celeste: урон рывка 2× → 2.5×",
-        ["uk_ua"] = "↑ +0.15 Швидкість#Невеликий бонус до стат#Синергія з Dash!/Celeste: урон ривка 2× → 2.5×",
-        ["vi"]    = "↑ +0.15 Tốc độ#Tăng chỉ số nhẹ#Tương tác với Dash!/Celeste: sát thương dash 2× → 2.5×",
+        ["cz_cz"] = "↑ +0.15 Rychlost#Malý bonus ke statistice#Speciální synergie s Dash!/Celeste: zvyšuje poškození dashu z 2× → 2.5×",
+        ["de"]    = "↑ +0.15 Geschwindigkeit#Kleiner Stat-Bonus#Synergie mit Dash!/Celeste: erhöht Dash-Schaden von 2× → 2,5×",
+        ["en_us"] = "↑ +0.15 Speed#Minor stat bonus#Synergizes with Dash!/Celeste: increases dash damage 2× → 2.5×",
+        ["es"]    = "↑ +0.15 Velocidad#Pequeño bonus de estadísticas#Sinergia con Dash!/Celeste: aumenta el daño del dash de 2× → 2.5×",
+        ["fr"]    = "↑ +0.15 Vitesse#Petit bonus de statistiques#Synergie avec Dash!/Celeste : augmente les dégâts du dash de 2× → 2.5×",
+        ["it"]    = "↑ +0.15 Velocità#Piccolo bonus alle statistiche#Sinergia con Dash!/Celeste: aumenta il danno dello scatto da 2× → 2.5×",
+        ["ja_jp"] = "↑ 移動速度 +0.15#小さなステータスボーナス#Dash!/Celesteとのシナジー: ダッシュダメージ 2× → 2.5×",
+        ["ko_kr"] = "↑ 속도 +0.15#작은 스탯 보너스#Dash!/Celeste 시너지: 대시 데미지 2× → 2.5×",
+        ["ro_ro"] = "↑ +0.15 Viteză#Mic bonus la statistici#Sinergie cu Dash!/Celeste: mărește daunele dash de la 2× → 2.5×",
+        ["ru"]    = "↑ +0.15 Скорость#Небольшой бонус к характеристикам#Синергия с Dash!/Celeste: увеличивает урон рывка 2× → 2.5×",
+        ["uk_ua"] = "↑ +0.15 Швидкість#Невеликий бонус до характеристик#Синергія з Dash!/Celeste: збільшує урон ривка 2× → 2.5×",
+        ["vi"]    = "↑ +0.15 Tốc độ#Tăng chỉ số nhẹ#Tương tác với Dash!/Celeste: tăng sát thương dash từ 2× → 2.5×",
         ["zh_cn"] = "↑ +0.15 移动速度#小幅属性提升#与 Dash!/Celeste 联动：冲刺伤害 2× → 2.5×"
     }
 
     local passiveDesc = {
-        ["cz_cz"] =
-        "Poškození ×2.5, ↓ -1 Slzy, ↑ +0.25 Rychlost, Slzy se dělí.#Každé 4s vyvolá rázovou vlnu, která způsobí 2.5× vašeho poškození nepřátelům v okolí.#Občas obnoví půl srdce#Pokud máte Dash!, použití Dash! okamžitě aktivuje vlnu a resetuje její cooldown.",
-        ["de"]    =
-        "Schaden ×2.5, ↓ -1 Tränen, ↑ +0.25 Geschwindigkeit, Tränen teilen sich.#Alle 4s erzeugt es eine Schockwelle, die Gegnern in der Nähe 2.5× deines Schadens zufügt.#Heilt gelegentlich ein halbes Herz#Wenn du Dash! hast, löst die Benutzung von Dash! die Welle sofort aus und setzt deren Abklingzeit zurück.",
-        ["en_us"] =
-        "Damage ×2.5, ↓ -1 Tears, ↑ +0.25 Speed, Tears split.#Every 4s emits a shockwave that deals 2.5× your damage to nearby enemies.#Occasionally regenerates half a heart#If you have Dash!, using Dash! immediately triggers the wave and resets its cooldown.",
-        ["es"]    =
-        "Daño ×2.5, ↓ -1 Lagrimas, ↑ +0.25 Velocidad, Las lágrimas se dividen.#Cada 4s emite una onda expansiva que inflige 2.5× tu daño a enemigos cercanos.#Regenera de vez en cuando medio corazon#Si tienes Dash!, usar Dash! activa la onda inmediatamente y reinicia su cooldown.",
-        ["fr"]    =
-        "Dégâts ×2.5, ↓ -1 Larmes, ↑ +0.25 Vitesse, Les larmes se divisent.#Toutes les 4s émet une onde de choc qui inflige 2.5× vos dégâts aux ennemis proches.#Régénère de temps en temps un demi-cœur#Si vous avez Dash!, l'utilisation de Dash! déclenche immédiatement l'onde et réinitialise son cooldown.",
-        ["it"]    =
-        "Danno ×2.5, ↓ -1 Lacrime, ↑ +0.25 Velocità, Le lacrime si dividono.#Ogni 4s emette un'onda d'urto che infligge 2.5× il tuo danno ai nemici vicini.#Rigenera di tanto in tanto mezzo cuore#Se hai Dash!, usare Dash! attiva immediatamente l'onda e resetta il suo cooldown.",
-        ["ja_jp"] =
-        "ダメージ ×2.5、↓ -1 涙、↑ +0.25 移動速度、涙が分裂する。#4秒ごとに周囲に衝撃波を放ち、近くの敵にあなたのダメージの2.5倍を与える。#ランダムでハーフハートを回復することがある。#Dash!を所持している場合、Dash!を使うと衝撃波が即座に発動し、クールダウンをリセットする。",
-        ["ko_kr"] =
-        "데미지 ×2.5, ↓ -1 눈물, ↑ +0.25 이동속도, 눈물이 분열한다.#4초마다 주변에 충격파를 방출하여 근처 적에게 당신의 데미지의 2.5배를 입힌다.#가끔 반 하트를 회복한다#Dash!를 가지고 있다면 Dash! 사용 시 즉시 파동이 발동하고 재사용 대기시간이 초기화된다.",
-        ["ro_ro"] =
-        "Daune ×2.5, ↓ -1 Lacrimi, ↑ +0.25 Viteză, Lacrimile se împart.#La fiecare 4s emite o undă de șoc care aplică 2.5× daunele tale inamicilor apropiați.#Uneori regenerează jumătate de inimă#Dacă ai Dash!, folosirea Dash! activează imediat unda și resetează cooldown-ul.",
-        ["ru"]    =
-        "Урон ×2.5, ↓ -1 Слеза, ↑ +0.25 Скорость, Слезы делятся.#Каждые 4 с испускает ударную волну, наносящую 2.5× вашего урона ближайшим врагам.#Иногда восстанавливает половину сердца#Если у вас есть Dash!, использование Dash! мгновенно активирует волну и сбросит её перезарядку.",
-        ["uk_ua"] =
-        "Шкода ×2.5, ↓ -1 Сльоза, ↑ +0.25 Швидкість, Сльози діляться.#Кожні 4 с випромінює ударну хвилю, яка завдає 2.5× вашого ушкодження ближнім ворогам.#Іноді відновлює половину серця#Якщо у вас є Dash!, використання Dash! миттєво активує хвилю і скине її кулдаун.",
-        ["vi"]    =
-        "Sát thương ×2.5, ↓ -1 Lệ, ↑ +0.25 Tốc độ, Đạn tách.#Mỗi 4s phát ra một làn sóng gây 2.5× sát thương của bạn lên kẻ địch gần đó.#Thỉnh thoảng hồi nửa trái tim#Nếu bạn có Dash!, dùng Dash! sẽ kích hoạt làn sóng ngay lập tức và đặt lại thời gian hồi.",
-        ["zh_cn"] =
-        "伤害 ×2.5，↓ -1 眼泪，↑ +0.25 速度，眼泪分裂。#每4秒发出一次冲击波，对附近敌人造成你伤害的2.5倍。#有时会恢复半颗心#如果你拥有 Dash!，使用 Dash! 会立即触发冲击波并重置冷却。"
+        ["cz_cz"] = "Poškození ×2.5, ↓ -1 Slzy, ↑ +0.25 Rychlost, Slzy mají svatou auru.#Každé 4 s vyvolá rázovou vlnu, která způsobí 2.5× vašeho poškození nepřátelům v okolí.#Občas obnoví půl srdce.#Pokud máte Dash!, použití Dash! okamžitě aktivuje vlnu a resetuje její cooldown.",
+        ["de"]    = "Schaden ×2.5, ↓ -1 Tränen, ↑ +0.25 Geschwindigkeit, Tränen haben eine heilige Aura.#Alle 4 s erzeugt es eine Schockwelle, die Gegnern in der Nähe 2.5× deines Schadens zufügt.#Heilt gelegentlich ein halbes Herz.#Wenn du Dash! hast, löst die Benutzung von Dash! die Welle sofort aus und setzt deren Abklingzeit zurück.",
+        ["en_us"] = "Damage ×2.5, ↓ -1 Tears, ↑ +0.25 Speed, Tears have a holy aura.#Every 4s emits a shockwave that deals 2.5× your damage to nearby enemies.#Occasionally regenerates half a heart.#If you have Dash!, using Dash! immediately triggers the wave and resets its cooldown.",
+        ["es"]    = "Daño ×2.5, ↓ -1 Lágrimas, ↑ +0.25 Velocidad, Las lágrimas tienen un aura sagrada.#Cada 4 s emite una onda expansiva que inflige 2.5× tu daño a enemigos cercanos.#Regenera ocasionalmente medio corazón.#Si tienes Dash!, usar Dash! activa la onda inmediatamente y reinicia su cooldown.",
+        ["fr"]    = "Dégâts ×2.5, ↓ -1 Larmes, ↑ +0.25 Vitesse, Les larmes ont une aura sacrée.#Toutes les 4 s émet une onde de choc infligeant 2.5× vos dégâts aux ennemis proches.#Régénère parfois un demi-cœur.#Si vous avez Dash!, l'utilisation de Dash! déclenche immédiatement l'onde et réinitialise son cooldown.",
+        ["it"]    = "Danno ×2.5, ↓ -1 Lacrime, ↑ +0.25 Velocità, Le lacrime hanno un'aura sacra.#Ogni 4 s emette un'onda d'urto che infligge 2.5× il tuo danno ai nemici vicini.#Rigenera occasionalmente mezzo cuore.#Se hai Dash!, usare Dash! attiva immediatamente l'onda e resetta il suo cooldown.",
+        ["ja_jp"] = "ダメージ ×2.5、↓ -1 涙、↑ +0.25 移動速度、涙は聖なるオーラを帯びる。#4秒ごとに衝撃波を放ち、近くの敵にあなたのダメージの2.5倍を与える。#時折ハーフハートを回復する。#Dash!を所持している場合、Dash!を使用すると衝撃波が即座に発動し、クールダウンがリセットされる。",
+        ["ko_kr"] = "데미지 ×2.5, ↓ -1 눈물, ↑ +0.25 이동속도, 눈물에 성스러운 오라가 생김.#4초마다 주변에 충격파를 방출하여 근처 적에게 당신 데미지의 2.5배를 입힘.#가끔 반 하트를 회복함.#Dash!를 가지고 있다면 Dash! 사용 시 즉시 파동이 발동하고 재사용 대기시간이 초기화됨.",
+        ["ro_ro"] = "Daune ×2.5, ↓ -1 Lacrimi, ↑ +0.25 Viteză, Lacrimile au o aură sacră.#La fiecare 4 s emite o undă de șoc care aplică 2.5× daunele tale inamicilor apropiați.#Uneori regenerează jumătate de inimă.#Dacă ai Dash!, folosirea Dash! activează imediat unda și resetează cooldown-ul.",
+        ["ru"]    = "Урон ×2.5, ↓ -1 Слеза, ↑ +0.25 Скорость, Слезы обладают святой аурой.#Каждые 4 с испускает ударную волну, наносящую 2.5× вашего урона ближайшим врагам.#Иногда восстанавливает половину сердца.#Если у вас есть Dash!, использование Dash! мгновенно активирует волну и сбросит её перезарядку.",
+        ["uk_ua"] = "Шкода ×2.5, ↓ -1 Сльоза, ↑ +0.25 Швидкість, Сльози мають святу ауру.#Кожні 4 с випромінює ударну хвилю, що завдає 2.5× вашого ушкодження ближнім ворогам.#Іноді відновлює половину серця.#Якщо у вас є Dash!, використання Dash! миттєво активує хвилю і скине її кулдаун.",
+        ["vi"]    = "Sát thương ×2.5, ↓ -1 Lệ, ↑ +0.25 Tốc độ, Đạn có hào quang thánh.#Mỗi 4 s phát ra một làn sóng gây 2.5× sát thương của bạn lên kẻ địch gần đó.#Thỉnh thoảng hồi nửa trái tim.#Nếu bạn có Dash!, dùng Dash! sẽ kích hoạt làn sóng ngay lập tức và đặt lại thời gian hồi.",
+        ["zh_cn"] = "伤害 ×2.5，↓ -1 眼泪，↑ +0.25 速度，眼泪带有圣光光环。#每4秒发出一次冲击波，对附近敌人造成你伤害的2.5倍。#有时会回复半颗心。#如果你拥有 Dash!，使用 Dash! 会立即触发冲击波并重置冷却。"
     }
+
     for lang, desc in pairs(dashDesc) do EID:addCollectible(ACTIVE_ID, desc, "Dash!", lang) end
     for lang, desc in pairs(trinketDesc) do EID:addTrinket(TRINKET_ID, desc, "Twister", lang) end
     for lang, desc in pairs(passiveDesc) do EID:addCollectible(PASSIVE_ID, desc, "Celeste!", lang) end
