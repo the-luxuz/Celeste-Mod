@@ -51,7 +51,9 @@ local PASSIVE_TEARS_MULT = 0.65
 local PASSIVE_DAMAGE_MULT = 2.0
 
 local rotationIndex = 0
+-- local spriterotation = 0
 
+-- EID Descriptions
 if EID then
     local dashDesc = {
         ["cz_cz"] =
@@ -538,11 +540,19 @@ mod:AddCallback(ModCallbacks.MC_POST_NEW_ROOM, function()
 end)
 
 function ChargeBarRender(Meter, IsCharging, pos, Sprite)
+    -- local i = spriterotation
     if not Game():GetHUD():IsVisible() then return end
     local pct = Meter or 0
     if IsCharging then
         if pct < 99 then
             Sprite:SetFrame("Charging", math.floor(pct))
+        --     if i == 0 then
+        --         Sprite:SetFrame("Charging", math.floor(pct))
+        --     elseif i == 1 then
+        --         Sprite:SetFrame("Charging1", math.floor(pct))
+        --     elseif i == 2 then
+        --         Sprite:SetFrame("Charging2", math.floor(pct))
+        --     end
         else
             if not Sprite:IsPlaying("Charged") then Sprite:Play("Charged", true) end
         end
@@ -551,6 +561,8 @@ function ChargeBarRender(Meter, IsCharging, pos, Sprite)
     end
     Sprite:Render(pos, Vector.Zero, Vector.Zero)
     Sprite:Update()
+    -- spriterotation = spriterotation + 1
+    -- if spriterotation > 2 then spriterotation = 0 end
 end
 
 
