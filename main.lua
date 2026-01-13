@@ -39,7 +39,7 @@ local AUTO_DASH_INTERVAL = 240
 local CONTACT_RADIUS = 30
 local WEAK_MULTIPLIER = 2
 local TRINKET_MULTIPLIER = 2.5
-local POST_INVULN_AFTER = 40
+local POST_INVULN_AFTER = 50
 local WAVE_INTERVAL_FRAMES = 240
 local WAVE_ACTIVE_FRAMES = 30
 local REGEN_INTERVAL_FRAMES = 360
@@ -52,6 +52,8 @@ local PASSIVE_DAMAGE_MULT = 2.0
 
 local rotationIndex = 0
 -- local spriterotation = 0
+
+local Pogmod = Isaac.getModByName("POG for Good Items")
 
 -- EID Descriptions
 if EID then
