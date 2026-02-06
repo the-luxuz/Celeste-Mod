@@ -57,58 +57,157 @@ local rotationIndex = 0
 -- EID Descriptions
 -- =========================
 
--- local DashEID = {
---     en_us = "Dashes in the direction you're shooting#Deals 2× your damage#Invulnerable while dashing",
---     es    = "Dashea en la dirección en la que apuntas#Inflige 2× tu daño#Invulnerable durante el dash",
---     fr    = "Charge dans la direction de tir#Inflige 2× vos dégâts#Invulnérable pendant la charge"
--- }
+local DashEID = {
+    ["cz_cz"] = "Vyskakuje ve směru, kam míříte#Způsobí 2× vášho poškození nepřátelům zasaženým dash#Během dash jste neporazitelní",
+    ["de"]    = "Stürzt in Schussrichtung vor#Verursacht 2× deinen Schaden an Gegnern, die vom Dash getroffen werden#Während des Dashs unverwundbar",
+    ["en_us"] = "Dashes in the direction you're shooting#Deals 2× your damage to enemies hit by the dash (2.5× with Twister)#Invulnerable while dashing",
+    ["es"]    = "Dashea en la dirección en la que apuntas#Inflige 2× tu daño a enemigos alcanzados por el dash (2.5× con Twister)#Invulnerable durante el dash",
+    ["fr"]    = "Charge dans la direction de tir#Inflige 2× vos dégâts aux ennemis touchés par la charge (2.5× avec Twister)#Invulnérable pendant la charge",
+    ["it"]    = "Scatta nella direzione di fuoco#Infligge 2× i tuoi danni ai nemici colpiti dallo scatto (2.5× con Twister)#Invulnerabile durante lo scatto",
+    ["ja_jp"] = "攻撃方向に突進する#突進でヒットした敵に自身のダメージの2倍を与える（Twisterで2.5倍）#突進中は無敵",
+    ["ko_kr"] = "공격 방향으로 돌진#돌진에 맞은 적에게 플레이어 데미지의 2배를 입힘(Twister 시 2.5배)#돌진 중 무적",
+    ["ro_ro"] = "Se aruncă în direcția de tragere#Aplică 2× daunele tale inamicilor loviți de dash (2.5× cu Twister)#Invulnerabil în timpul dash-ului",
+    ["ru"]    = "Рывок в направлении стрельбы#Наносит врагам, поражённым рывком, 2× вашего урона (2.5× с Twister)#Неуязвим во время рывка",
+    ["uk_ua"] = "Ривок у напрямку стрільби#Завдає ворогам, ураженим ривком, у 2× вашого урону (2.5× з Twister)#Невразливий під час ривка",
+    ["vi"]    = "Lao về hướng bắn#Gây 2× sát thương của bạn cho kẻ địch trúng dash (2.5× với Twister)#Vô hình khi dash",
+    ["zh_cn"] = "朝射击方向冲刺#对被冲刺击中的敌人造成你伤害的2倍（携带 Twister 时为2.5倍）#冲刺时无敌"
+}
 
--- local TrinketEID = {
---     en_us = "↑ +0.15 Speed#Dash damage +25%",
---     es    = "↑ +0.15 Velocidad#Daño del dash +25%",
---     fr    = "↑ +0.15 Vitesse#Dégâts du dash +25%"
--- }
+local TrinketEID = {
+    ["cz_cz"] = "↑ +0.15 Rychlost#Speciální synergie s Dash!/Celeste: zvyšuje poškození dashu z 2× → 2.5×",
+    ["de"]    = "↑ +0.15 Geschwindigkeit#Synergie mit Dash!/Celeste: erhöht Dash-Schaden von 2× → 2,5×",
+    ["en_us"] = "↑ +0.15 Speed#Synergizes with Dash!/Celeste: increases dash damage 2× → 2.5×",
+    ["es"]    = "↑ +0.15 Velocidad#Sinergia con Dash!/Celeste: aumenta el daño del dash de 2× → 2.5×",
+    ["fr"]    = "↑ +0.15 Vitesse#Synergie avec Dash!/Celeste : augmente les dégâts du dash de 2× → 2.5×",
+    ["it"]    = "↑ +0.15 Velocità#Sinergia con Dash!/Celeste: aumenta il danno dello scatto da 2× → 2.5×",
+    ["ja_jp"] = "↑ 移動速度 +0.15#Dash!/Celesteとのシナジー: ダッシュダメージ 2× → 2.5×",
+    ["ko_kr"] = "↑ 속도 +0.15#Dash!/Celeste 시너지: 대시 데미지 2× → 2.5×",
+    ["ro_ro"] = "↑ +0.15 Viteză#Sinergie cu Dash!/Celeste: mărește daunele dash de la 2× → 2.5×",
+    ["ru"]    = "↑ +0.15 Скорость#Синергия с Dash!/Celeste: увеличивает урон рывка 2× → 2.5×",
+    ["uk_ua"] = "↑ +0.15 Швидкість#Синергія з Dash!/Celeste: збільшує урон ривка 2× → 2.5×",
+    ["vi"]    = "↑ +0.15 Tốc độ#Tương tác với Dash!/Celeste: tăng sát thương dash từ 2× → 2.5×",
+    ["zh_cn"] = "↑ +0.15 移动速度#与 Dash!/Celeste 联动：冲刺伤害 2× → 2.5×"
+}
 
--- local PassiveEID = {
---     en_us = "Damage ×2.5#Holy shockwave every 4s#Half-heart regen",
---     es    = "Daño ×2.5#Onda sagrada cada 4s#Regenera medio corazón",
---     fr    = "Dégâts ×2.5#Onde sacrée toutes les 4s#Régénère un demi-cœur"
--- }
+local PassiveEID = {
+    ["cz_cz"] = "Poškození ×2.5, ↓ -1 Slzy, ↑ +0.25 Rychlost, Slzy mají svatou auru.#Každé 4 s vyvolá rázovou vlnu, která způsobí 2.5× vašeho poškození nepřátelům v okolí.#Občas obnoví půl srdce.#Pokud máte Dash!, použití Dash! okamžitě aktivuje vlnu a resetuje její cooldown.",
+    ["de"]    = "Schaden ×2.5, ↓ -1 Tränen, ↑ +0.25 Geschwindigkeit, Tränen haben eine heilige Aura.#Alle 4 s erzeugt es eine Schockwelle, die Gegnern in der Nähe 2.5× deines Schadens zufügt.#Heilt gelegentlich ein halbes Herz.#Wenn du Dash! hast, löst die Benutzung von Dash! die Welle sofort aus und setzt deren Abklingzeit zurück.",
+    ["en_us"] = "Damage ×2.5, ↓ -1 Tears, ↑ +0.25 Speed, Tears have a holy aura.#Every 4s emits a shockwave that deals 2.5× your damage to nearby enemies.#Occasionally regenerates half a heart.#If you have Dash!, using Dash! immediately triggers the wave and resets its cooldown.",
+    ["es"]    = "Daño ×2.5, ↓ -1 Lágrimas, ↑ +0.25 Velocidad, Las lágrimas tienen un aura sagrada.#Cada 4 s emite una onda expansiva que inflige 2.5× tu daño a enemigos cercanos.#Regenera ocasionalmente medio corazón.#Si tienes Dash!, usar Dash! activa la onda inmediatamente y reinicia su cooldown.",
+    ["fr"]    = "Dégâts ×2.5, ↓ -1 Larmes, ↑ +0.25 Vitesse, Les larmes ont une aura sacrée.#Toutes les 4 s émet une onde de choc infligeant 2.5× vos dégâts aux ennemis proches.#Régénère parfois un demi-cœur.#Si vous avez Dash!, l'utilisation de Dash! déclenche immédiatement l'onde et réinitialise son cooldown.",
+    ["it"]    = "Danno ×2.5, ↓ -1 Lacrime, ↑ +0.25 Velocità, Le lacrime hanno un'aura sacra.#Ogni 4 s emette un'onda d'urto che infligge 2.5× il tuo danno ai nemici vicini.#Rigenera occasionalmente mezzo cuore.#Se hai Dash!, usare Dash! attiva immediatamente l'onda e resetta il suo cooldown.",
+    ["ja_jp"] = "ダメージ ×2.5、↓ -1 涙、↑ +0.25 移動速度、涙は聖なるオーラを帯びる。#4秒ごとに衝撃波を放ち、近くの敵にあなたのダメージの2.5倍を与える。#時折ハーフハートを回復する。#Dash!を所持している場合、Dash!を使用すると衝撃波が即座に発動し、クールダウンがリセットされる。",
+    ["ko_kr"] = "데미지 ×2.5, ↓ -1 눈물, ↑ +0.25 이동속도, 눈물에 성스러운 오라가 생김.#4초마다 주변에 충격파를 방출하여 근처 적에게 당신 데미지의 2.5배를 입힘.#가끔 반 하트를 회복함.#Dash!를 가지고 있다면 Dash! 사용 시 즉시 파동이 발동하고 재사용 대기시간이 초기화됨.",
+    ["ro_ro"] = "Daune ×2.5, ↓ -1 Lacrimi, ↑ +0.25 Viteză, Lacrimile au o aură sacră.#La fiecare 4 s emite o undă de șoc care aplică 2.5× daunele tale inamicilor apropiați.#Uneori regenerează jumătate de inimă.#Dacă ai Dash!, folosirea Dash! activează imediat unda și resetează cooldown-ul.",
+    ["ru"]    = "Урон ×2.5, ↓ -1 Слеза, ↑ +0.25 Скорость, Слезы обладают святой аурой.#Каждые 4 с испускает ударную волну, наносящую 2.5× вашего урона ближайшим врагам.#Иногда восстанавливает половину сердца.#Если у вас есть Dash!, использование Dash! мгновенно активирует волну и сбросит её перезарядку.",
+    ["uk_ua"] = "Шкода ×2.5, ↓ -1 Сльоза, ↑ +0.25 Швидкість, Сльози мають святу ауру.#Кожні 4 с випромінює ударну хвилю, що завдає 2.5× вашого ушкодження ближнім ворогам.#Іноді відновлює половину серця.#Якщо у вас є Dash!, використання Dash! миттєво активує хвилю і скине її кулдаун.",
+    ["vi"]    = "Sát thương ×2.5, ↓ -1 Lệ, ↑ +0.25 Tốc độ, Đạn có hào quang thánh.#Mỗi 4 s phát ra một làn sóng gây 2.5× sát thương của bạn lên kẻ địch gần đó.#Thỉnh thoảng hồi nửa trái tim.#Nếu bạn có Dash!, dùng Dash! sẽ kích hoạt làn sóng ngay lập tức và đặt lại thời gian hồi.",
+    ["zh_cn"] = "伤害 ×2.5，↓ -1 眼泪，↑ +0.25 速度，眼泪带有圣光光环。#每4秒发出一次冲击波，对附近敌人造成你伤害的2.5倍。#有时会回复半颗心。#如果你拥有 Dash!，使用 Dash! 会立即触发冲击波并重置冷却。"
+}
 
--- -- =========================
--- -- EID Register (ONLY ONCE)
--- -- =========================
 
--- local EID_REGISTERED = false
+local EID_REGISTERED = false
 
--- local function RegisterEID()
---     if EID_REGISTERED then return end
---     if not EID then return end
+local function safeAddCollectible(id, desc, name, lang)
+    if not id or id <= 0 then return end
+    if not EID then return end
+    pcall(function()
+        
+        if EID.addCollectible then
+            EID:addCollectible(id, desc, name, lang)
+        elseif EID.AddCollectible then
+            EID:AddCollectible(id, desc, name, lang)
+        end
+    end)
+end
 
---     EID_REGISTERED = true
+local function safeAddTrinket(id, desc, name, lang)
+    if not id or id <= 0 then return end
+    if not EID then return end
+    pcall(function()
+        if EID.addTrinket then
+            EID:addTrinket(id, desc, name, lang)
+        elseif EID.AddTrinket then
+            EID:AddTrinket(id, desc, name, lang)
+        end
+    end)
+end
 
---     if ACTIVE_ID > 0 then
---         for lang, desc in pairs(DashEID) do
---             EID:addCollectible(ACTIVE_ID, desc, "Dash!", lang)
---         end
---     end
+local function RegisterEID()
+    if EID_REGISTERED then return end
+    if not EID then return end
+    EID_REGISTERED = true
 
---     if TRINKET_ID > 0 then
---         for lang, desc in pairs(TrinketEID) do
---             EID:addTrinket(TRINKET_ID, desc, "Twister", lang)
---         end
---     end
+    local itemConfig = Isaac.GetItemConfig()
 
---     if PASSIVE_ID > 0 then
---         for lang, desc in pairs(PassiveEID) do
---             EID:addCollectible(PASSIVE_ID, desc, "Celeste!", lang)
---         end
---     end
+    local dashName = "Dash!"
+    local passiveName = "Celeste!"
+    local trinketName = "Twister"
+    pcall(function()
+        local cfg = itemConfig:GetCollectible(ACTIVE_ID)
+        if cfg and cfg.Name then dashName = cfg.Name end
+    end)
+    pcall(function()
+        local cfg = itemConfig:GetCollectible(PASSIVE_ID)
+        if cfg and cfg.Name then passiveName = cfg.Name end
+    end)
+    
+    pcall(function()
+        local tcfg = itemConfig:GetTrinket(TRINKET_ID)
+        if tcfg and tcfg.Name then trinketName = tcfg.Name end
+    end)
 
---     print("[Celeste Mod] EID registrado (legacy)")
--- end
+    for lang, desc in pairs(DashEID) do
+        safeAddCollectible(ACTIVE_ID, desc, dashName, lang)
+    end
+    for lang, desc in pairs(TrinketEID) do
+        safeAddTrinket(TRINKET_ID, desc, trinketName, lang)
+    end
+    for lang, desc in pairs(PassiveEID) do
+        safeAddCollectible(PASSIVE_ID, desc, passiveName, lang)
+    end
 
--- mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, RegisterEID)
+    print("[Celeste Mod] EID: EID API successfuly loaded.")
+end
+
+mod:AddCallback(ModCallbacks.MC_POST_GAME_STARTED, RegisterEID)
+
+
+function mod:OnEvaluateCache(player, cacheFlag)
+    if not player then return end
+    local d = player:GetData()
+    d._TearBonus = d._TearBonus or 0
+
+    if cacheFlag == CacheFlag.CACHE_SPEED then
+        if player:HasTrinket(TRINKET_ID) then
+            player.MoveSpeed = player.MoveSpeed + 0.15
+        end
+        if player:HasCollectible(PASSIVE_ID) then
+            player.MoveSpeed = player.MoveSpeed + 0.25
+        end
+
+    elseif cacheFlag == CacheFlag.CACHE_FIREDELAY then
+        if d._TearBonus and d._TearBonus ~= 0 then
+            player.MaxFireDelay = CalculateTears(player.MaxFireDelay, d._TearBonus)
+        end
+        if player:HasCollectible(PASSIVE_ID) then
+            player.MaxFireDelay = math.max(1, player.MaxFireDelay / PASSIVE_TEARS_MULT)
+        end
+
+    elseif cacheFlag == CacheFlag.CACHE_DAMAGE then
+        if player:HasCollectible(PASSIVE_ID) then
+            player.Damage = player.Damage * PASSIVE_DAMAGE_MULT
+        end
+
+    elseif cacheFlag == CacheFlag.CACHE_TEARFLAG then
+        if player:HasCollectible(PASSIVE_ID) then
+            player.TearFlags = player.TearFlags | TearFlags.TEAR_GLOW
+        end
+    end
+end
+
+mod:AddCallback(ModCallbacks.MC_EVALUATE_CACHE, mod.OnEvaluateCache)
+
 
 
 local function GetPlayerRange(player)
